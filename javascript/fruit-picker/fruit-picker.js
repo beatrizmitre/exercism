@@ -24,7 +24,7 @@ export function onSuccess() {
  */
 export function onError() {
   return notify({message: 'ERROR'})
-}
+} 
 
 /**
  * @param {GrocerQuery} query
