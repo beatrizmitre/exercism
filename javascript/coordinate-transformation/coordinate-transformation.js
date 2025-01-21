@@ -23,7 +23,7 @@ let py = 0
 export function translate2d(dx, dy) {
   return function moveCoordinatesRight2Px(px, py) {
     return [dx + px, dy + py]
-  }  
+  }
 }
 
 /**
@@ -68,11 +68,20 @@ export function composeTransform(f, g) {
  * @returns {function} a function which takes x and y arguments, and will either return the saved result
  *  if the arguments are the same on subsequent calls, or compute a new result if they are different.
  */
+
 export function memoizeTransform(f) {
-  let argumentX = px
-  let argumentY = py
 
-  transform = f(argumentX, argumentY)
-  
+  let lastRecord = {x: undefined, y: undefined, result: undefined}
 
+  return function memoizedTransform(x, y) {
+    if (lastRecord.x == x && lastRecord.y == y) {
+      return lastRecord.result
+    }
+    else {
+      lastRecord.x = x
+      lastRecord.y = y
+      lastRecord.result = f(x, y)
+      return lastRecord.result
+    }
+  }
 }
