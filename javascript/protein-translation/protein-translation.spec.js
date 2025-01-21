@@ -29,14 +29,14 @@ describe('ProteinTranslation', () => {
     const stopCodons = ['UAA', 'UAG', 'UGA'];
 
     stopCodons.forEach((codon, index) => {
-      xtest(`STOP codon RNA sequence ${index + 1}`, () => {
+      test(`STOP codon RNA sequence ${index + 1}`, () => {
         expect(translate(codon)).toEqual([]);
       });
     });
   });
 
   describe('Multiple codons', () => {
-    xtest('Sequence of two protein codons translates into proteins', () => {
+    test('Sequence of two protein codons translates into proteins', () => {
       expect(translate('UUUUUU')).toEqual(['Phenylalanine', 'Phenylalanine']);
     });
 
