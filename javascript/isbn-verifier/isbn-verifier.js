@@ -5,24 +5,22 @@
 
 export const isValid = (string) => {
   let arrayOfDigits = []
-  let splitString = string.split('')
+  let splitString = string.split('').filter((item) => item != '-')
 
-  for (let d = 0; d < splitString.length; d++) {
-    let itemAsNumber = Number(splitString[d])
-    if (itemAsNumber || itemAsNumber == 0) {
-      arrayOfDigits.push(itemAsNumber)
-    }
-    else if ((splitString[d] == 'X')) {
-      if (d == (splitString.length - 1)) {
+  for (let i = 0; i < splitString.length; i++) {
+    let itemAsNumber = Number(splitString[i])
+    if (isNaN(splitString[i])) {
+      if (splitString[i] == 'X' && (i == splitString.length - 1)) {
         arrayOfDigits.push(10)
       }
       else {
         return false
       }
     }
+    else {
+      arrayOfDigits.push(splitString[i])
+    }
   }
-
-  console.log(arrayOfDigits)
 
   if (arrayOfDigits.length < 10 || arrayOfDigits.length > 10 || arrayOfDigits.length == 0) {
     return false
