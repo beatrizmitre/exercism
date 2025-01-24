@@ -6,7 +6,8 @@
 export const translate = (rna) => {
   let codons = []
   let proteins = []
-  let invalidCodon
+  let proteinCodonSets = []
+
   const mapping = [
     ['Methionine', ['AUG']],
     ['Phenylalanine', ['UUU', 'UUC']],
@@ -18,29 +19,23 @@ export const translate = (rna) => {
     ['STOP', ['UAA', 'UAG', 'UGA']]
   ]
 
-  if (rna != undefined) {
-    for (let i = 0; i < rna.length; i += 3) {
-      let codon = rna.slice(i, i + 3)
-      let proteinsBefore = proteins.length
+  if (rna === undefined || rna.length === 0) return []
 
-      for (let c = 0; c < mapping.length; c++) {
-        if (mapping[c][1].includes(codon)) {
-          console.log(mapping[c][1])
-          if (mapping[c][0] == 'STOP') {
-            return proteins
-          }
-          proteins.push(mapping[c][0])
-        }
-      }
-      let proteinsAfter = proteins.length
-      if (proteinsBefore == proteinsAfter) {
-        throw new Error('Invalid codon')
-      }
-    }
-    return proteins
-  }
-  else {
-    return []
+  for (let i = 0; i < rna.length; i += 3) {
+    codons.push(rna.slice(i, i + 3))
   }
 
-};
+  function isAValidCodon(codon) {
+    mapping.forEach((proteinCodonSet) => {
+      if (proteinCodonSet[1].includes(codon)) {
+
+      }
+    })
+  }
+
+  for (let i = 0; i < codons.length; i++) {
+    codons
+  }
+
+  return proteins
+}
