@@ -37,7 +37,7 @@ export const translate = (rna) => {
         throw new Error('Invalid codon')
       }
     }
-    return protein
+    return proteins
   }
   else {
     return []
