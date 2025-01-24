@@ -43,15 +43,15 @@ export function all(promises) {
             resolve(results);
           }
         })
-        .catch(reject);
+        .catch(reject)
     });
   });
 }
 
 export const allSettled = (promises) => {
   return new Promise(resolve => {
-    const results = [];
-    let completedPromises = 0;
+    const results = []
+    let completedPromises = 0
 
     if (promises === undefined) {
       return resolve()
@@ -63,15 +63,15 @@ export const allSettled = (promises) => {
     promises.forEach((promise, index) => {
       Promise.resolve(promise)
         .then(value => {
-          results[index] = { status: 'fulfilled', value };
+          results[index] = value
         })
         .catch(reason => {
-          results[index] = { status: 'rejected', reason };
+          results[index] = reason
         })
         .finally(() => {
-          completedPromises++;
+          completedPromises++
           if (completedPromises === promises.length) {
-            resolve(results);
+            resolve(results)
           }
         });
     });
@@ -86,15 +86,15 @@ export const race = (promises) => {
     promises.forEach(promise => {
       Promise.resolve(promise)
         .then(resolve)
-        .catch(reject);
+        .catch(reject)
     });
   });
 };
 
 export const any = (promises) => {
   return new Promise((resolve, reject) => {
-    const errors = [];
-    let rejected = 0;
+    const errors = []
+    let rejected = 0
 
     if (promises.length === 0) { return resolve([])}
 
@@ -104,12 +104,11 @@ export const any = (promises) => {
         .catch(error => {
           errors[index] = error
           rejected++
-          errors.push([new Error('Failed callback')])
 
           if (rejected === promises.length) {
-            reject(new Error('Failed callback'));
+            reject(errors)
           }
-        });
-    });
-  });
-};
+        })
+    })
+  })
+}
